@@ -1,41 +1,38 @@
 package no.teithetsskalaen
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.configuration.FluentConfiguration
 import org.flywaydb.core.api.output.MigrateResult
 import org.slf4j.LoggerFactory
 import kotlin.system.exitProcess
 
-suspend fun dbMigrate(config: JdbcConnectionConfig): MigrateResult =
-    withContext(Dispatchers.IO) {
-        val m: FluentConfiguration = Flyway.configure()
-            .dataSource(config.url, config.username, config.password)
-            .group(true)
-            .outOfOrder(false)
-            .defaultSchema(config.schema)
-            .table(config.migrationsTable)
-            .locations(*config.migrationsLocations.toTypedArray())
-            .baselineOnMigrate(true)
-            .loggers("slf4j")
-            .placeholders(
-                config.migrationsPlaceholders + mapOf(
-                    "dbUsername" to config.username,
-                    "dbPassword" to config.password
-                )
+fun dbMigrate(config: Config): MigrateResult {
+    val m: FluentConfiguration = Flyway.configure()
+        .dataSource(config.url, config.username, config.password)
+        .group(true)
+        .outOfOrder(false)
+        .defaultSchema(config.schema)
+        .table(config.migrationsTable)
+        .locations(*config.migrationsLocations.toTypedArray())
+        .baselineOnMigrate(true)
+        .loggers("slf4j")
+        .placeholders(
+            config.migrationsPlaceholders + mapOf(
+                "dbUsername" to config.username,
+                "dbPassword" to config.password
             )
+        )
 
-        val validated = m
-            .ignoreMigrationPatterns("*:pending")
-            .load()
-            .validateWithResult()
+    val validated = m
+        .ignoreMigrationPatterns("*:pending")
+        .load()
+        .validateWithResult()
 
-        if (!validated.validationSuccessful) {
-            val logger = LoggerFactory.getLogger("RunMigrations")
-            for (error in validated.invalidMigrations) {
-                logger.warn(
-                    """
+    if (!validated.validationSuccessful) {
+        val logger = LoggerFactory.getLogger("RunMigrations")
+        for (error in validated.invalidMigrations) {
+            logger.warn(
+                """
                         |Failed to validate migration:
                         |  - version: ${error.version}
                         |  - path: ${error.filepath}
@@ -43,14 +40,14 @@ suspend fun dbMigrate(config: JdbcConnectionConfig): MigrateResult =
                         |  - error code: ${error.errorDetails.errorCode}
                         |  - error message: ${error.errorDetails.errorMessage}
                     """.trimMargin("|").trim()
-                )
-            }
+            )
         }
-        m.load().migrate()
     }
+    return m.load().migrate()
+}
 
 object RunMigrations {
-    suspend fun migrateNamespace(label: String, config: JdbcConnectionConfig): Unit = withContext(Dispatchers.IO) {
+    fun migrateNamespace(label: String, config: Config): Unit {
         val result = dbMigrate(config)
         println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
         println("Migrating: $label")

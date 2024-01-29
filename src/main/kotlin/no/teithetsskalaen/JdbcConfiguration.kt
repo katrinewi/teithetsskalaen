@@ -2,7 +2,7 @@ package no.teithetsskalaen
 
 import io.github.cdimascio.dotenv.dotenv
 
-data class JdbcConnectionConfig(
+data class Config(
     val url: String,
     val driver: String,
     val username: String,
@@ -10,16 +10,18 @@ data class JdbcConnectionConfig(
     val password: String,
     val migrationsTable: String,
     val migrationsLocations: List<String>,
-    val migrationsPlaceholders: Map<String, String> = emptyMap()
+    val migrationsPlaceholders: Map<String, String> = emptyMap(),
+    val port: Int,
 ) {
     companion object {
-        fun loadFromEnv(): JdbcConnectionConfig {
+        fun loadFromEnv(): Config {
             val dotenv = dotenv()
             val url = dotenv["DB_URL"]
             val username = dotenv["DB_USERNAME"]
             val password = dotenv["DB_PASSWORD"]
             val schema = dotenv["DB_PASSWORD"] ?: "teithetsskalaen"
-            return JdbcConnectionConfig(
+            val port = (dotenv["PORT"] ?: "6969").toInt()
+            return Config(
                 url = url,
                 driver = "org.postgresql.Driver",
                 username = username,
@@ -27,7 +29,8 @@ data class JdbcConnectionConfig(
                 migrationsTable = "migrations",
                 migrationsLocations = listOf("classpath:db/migrations"),
                 migrationsPlaceholders = mapOf(),
-                schema = schema
+                schema = schema,
+                port = port
             )
         }
     }
