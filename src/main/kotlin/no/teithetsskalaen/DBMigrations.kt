@@ -1,14 +1,15 @@
 package no.teithetsskalaen
 
+import com.zaxxer.hikari.HikariDataSource
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.configuration.FluentConfiguration
 import org.flywaydb.core.api.output.MigrateResult
 import org.slf4j.LoggerFactory
 import kotlin.system.exitProcess
 
-fun dbMigrate(config: Config): MigrateResult {
+fun dbMigrate(config: Config, dataSource: HikariDataSource): MigrateResult {
     val m: FluentConfiguration = Flyway.configure()
-        .dataSource(config.url, config.username, config.password)
+        .dataSource(dataSource)
         .group(true)
         .outOfOrder(false)
         .defaultSchema(config.schema)
@@ -47,8 +48,8 @@ fun dbMigrate(config: Config): MigrateResult {
 }
 
 object RunMigrations {
-    fun migrateNamespace(label: String, config: Config): Unit {
-        val result = dbMigrate(config)
+    fun migrateNamespace(label: String, config: Config, dataSource: HikariDataSource): Unit {
+        val result = dbMigrate(config, dataSource)
         println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
         println("Migrating: $label")
         println("------------------------------------")
