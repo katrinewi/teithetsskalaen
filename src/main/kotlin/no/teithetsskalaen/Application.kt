@@ -5,8 +5,11 @@ import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import io.ktor.server.application.*
+import io.ktor.server.plugins.contentnegotiation.*
 import kotlinx.coroutines.runBlocking
 import no.teithetsskalaen.plugins.*
+import io.ktor.serialization.kotlinx.json.*
 
 fun main() {
     val config = Config.loadFromEnv()
@@ -35,4 +38,5 @@ fun main() {
 
 fun Application.module() {
     configureRouting()
+    configureSerialization()
 }
