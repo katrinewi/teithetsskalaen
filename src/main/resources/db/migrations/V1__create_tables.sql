@@ -1,4 +1,4 @@
-create table "teithet"
+create table "teithets"
 (
     id          bigserial primary key,
     title       text      not null,
@@ -12,5 +12,5 @@ create table "votes"
     comment    text null,
     score      integer   not null,
     created_at timestamp not null default now(),
-    teithet_id bigint    not null references teithet (id)
+    teithet_id bigint    not null references teithets (id)
 );

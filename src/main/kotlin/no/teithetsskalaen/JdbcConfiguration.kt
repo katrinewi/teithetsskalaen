@@ -19,7 +19,7 @@ data class Config(
             val url = dotenv["DB_URL"]
             val username = dotenv["DB_USERNAME"]
             val password = dotenv["DB_PASSWORD"]
-            val schema = dotenv["DB_PASSWORD"] ?: "teithetsskalaen"
+            val schema = dotenv["DB_SCHEMA"] ?: "teithetsskalaen"
             val port = (dotenv["PORT"] ?: "6969").toInt()
             return Config(
                 url = url,

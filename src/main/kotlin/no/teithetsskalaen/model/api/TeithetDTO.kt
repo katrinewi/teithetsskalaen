@@ -10,4 +10,14 @@ data class TeithetDTO(
     val description: String,
     @Contextual
     val createdAt: LocalDateTime
-)
+) {
+    companion object {
+        fun fromTeithet(teithet: no.teithetsskalaen.model.domain.Teithet) = TeithetDTO(
+            id = teithet.id,
+            title = teithet.title,
+            description = teithet.description,
+            createdAt = teithet.createdAt
+        )
+    }
+}
+
