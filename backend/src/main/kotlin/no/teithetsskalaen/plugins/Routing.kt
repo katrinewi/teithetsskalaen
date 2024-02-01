@@ -6,7 +6,5 @@ import io.ktor.server.routing.*
 import no.teithetsskalaen.controller.Teithet
 
 fun Application.configureRouting() {
-    routing {
-        Teithet()
-    }
+    routing { Teithet() }
 }

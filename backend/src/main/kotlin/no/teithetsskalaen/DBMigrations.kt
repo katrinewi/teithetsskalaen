@@ -1,33 +1,29 @@
 package no.teithetsskalaen
 
 import com.zaxxer.hikari.HikariDataSource
+import kotlin.system.exitProcess
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.configuration.FluentConfiguration
 import org.flywaydb.core.api.output.MigrateResult
 import org.slf4j.LoggerFactory
-import kotlin.system.exitProcess
 
 fun dbMigrate(config: Config, dataSource: HikariDataSource): MigrateResult {
-    val m: FluentConfiguration = Flyway.configure()
-        .dataSource(dataSource)
-        .group(true)
-        .outOfOrder(false)
-        .defaultSchema(config.schema)
-        .table(config.migrationsTable)
-        .locations(*config.migrationsLocations.toTypedArray())
-        .baselineOnMigrate(true)
-        .loggers("slf4j")
-        .placeholders(
-            config.migrationsPlaceholders + mapOf(
-                "dbUsername" to config.username,
-                "dbPassword" to config.password
+    val m: FluentConfiguration =
+        Flyway.configure()
+            .dataSource(dataSource)
+            .group(true)
+            .outOfOrder(false)
+            .defaultSchema(config.schema)
+            .table(config.migrationsTable)
+            .locations(*config.migrationsLocations.toTypedArray())
+            .baselineOnMigrate(true)
+            .loggers("slf4j")
+            .placeholders(
+                config.migrationsPlaceholders +
+                    mapOf("dbUsername" to config.username, "dbPassword" to config.password)
             )
-        )
 
-    val validated = m
-        .ignoreMigrationPatterns("*:pending")
-        .load()
-        .validateWithResult()
+    val validated = m.ignoreMigrationPatterns("*:pending").load().validateWithResult()
 
     if (!validated.validationSuccessful) {
         val logger = LoggerFactory.getLogger("RunMigrations")
@@ -40,7 +36,9 @@ fun dbMigrate(config: Config, dataSource: HikariDataSource): MigrateResult {
                         |  - description: ${error.description}
                         |  - error code: ${error.errorDetails.errorCode}
                         |  - error message: ${error.errorDetails.errorMessage}
-                    """.trimMargin("|").trim()
+                    """
+                    .trimMargin("|")
+                    .trim()
             )
         }
     }

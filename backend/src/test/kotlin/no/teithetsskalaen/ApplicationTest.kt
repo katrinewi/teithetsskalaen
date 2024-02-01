@@ -1,4 +1,3 @@
 package no.teithetsskalaen
 
-class ApplicationTest {
-}
+class ApplicationTest {}

@@ -1,10 +1,8 @@
 package no.teithetsskalaen.model.domain
 
-
+import java.time.LocalDateTime
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.javatime.datetime
-import java.time.LocalDateTime
-
 
 data class Teithet(
     val id: Int,

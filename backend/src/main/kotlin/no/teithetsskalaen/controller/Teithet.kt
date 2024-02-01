@@ -19,12 +19,12 @@ fun Route.Teithet() {
         get("/{id}") {
             val id = call.parameters["id"]
             val numericId = id?.toInt()
-            if(numericId == null) {
+            if (numericId == null) {
                 call.respond(HttpStatusCode.BadRequest)
                 return@get
             }
             val teithet = teithetsService.getTeithet(numericId)
-            if(teithet == null) {
+            if (teithet == null) {
                 call.respond(HttpStatusCode.NotFound)
                 return@get
             }
