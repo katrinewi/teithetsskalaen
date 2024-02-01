@@ -6,11 +6,17 @@ val exposed_version: String by project
 plugins {
     kotlin("jvm") version "1.9.22"
     id("io.ktor.plugin") version "2.3.7"
+    id("com.ncorti.ktfmt.gradle") version "0.17.0"
     kotlin("plugin.serialization") version "1.9.21"
+}
+
+ktfmt {
+    kotlinLangStyle()
 }
 
 group = "no.teithetsskalaen"
 version = "0.0.1"
+
 
 application {
     mainClass.set("no.teithetsskalaen.ApplicationKt")
