@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint && yarn format-check",
-    "format": "prettier '(app/**/*|*)(*.js|*.jsx|*.ts|*.tsx|*.graphql|*.json)' --write",
-    "format-check": "prettier '(app/**/*|*)(*.js|*.jsx|*.ts|*.tsx|*.graphql|*.json)' --check"
+    "format": "prettier '(app/**/*|*)(*.js|*.jsx|*.ts|*.tsx|*.graphql|*.json|*.svg)' --write",
+    "format-check": "prettier '(app/**/*|*)(*.js|*.jsx|*.ts|*.tsx|*.graphql|*.json|*.svg)' --check"
   },
   "dependencies": {
     "next": "14.1.0",
