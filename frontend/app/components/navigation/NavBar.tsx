@@ -1,4 +1,3 @@
-import Image from "next/image";
 import LightModeIcon from "../../assets/icons/LightModeIcon";
 import Logo from "../../assets/logos/main";
 

@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 
 import NavBar from "./components/navigation/NavBar";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Teithetsskalaen",
@@ -19,7 +16,7 @@ export default function RootLayout({
   const mode = "dark";
   return (
     <html className={mode} lang="no">
-      <body className={inter.className}>
+      <body>
         <NavBar />
         {children}
       </body>
