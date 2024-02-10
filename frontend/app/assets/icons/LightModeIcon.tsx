@@ -1,18 +1,18 @@
 import { FunctionComponent } from "react";
 
 interface Props {
-  fill?: string;
+  className?: string;
   width?: string;
   height?: string;
 }
 
 const LightModeIcon: FunctionComponent<Props> = ({
-  fill,
+  className,
   height = 24,
   width = 24,
 }) => (
   <svg
-    fill={fill}
+    className={className}
     height={height}
     viewBox="0 -960 960 960"
     width={width}

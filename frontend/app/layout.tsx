@@ -16,8 +16,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const mode = "dark";
   return (
-    <html lang="no">
+    <html className={mode} lang="no">
       <body className={inter.className}>
         <NavBar />
         {children}
