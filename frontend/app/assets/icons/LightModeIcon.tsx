@@ -7,7 +7,7 @@ interface Props {
 }
 
 const LightModeIcon: FunctionComponent<Props> = ({
-  fill = "black",
+  fill,
   height = 24,
   width = 24,
 }) => (

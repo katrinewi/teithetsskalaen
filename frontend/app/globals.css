@@ -20,6 +20,10 @@
   }
 }
 
+svg {
+  fill: rgba(var(--text), 1);
+}
+
 body {
   color: rgba(var(--text), 1);
   background: rgba(var(--background), 1);

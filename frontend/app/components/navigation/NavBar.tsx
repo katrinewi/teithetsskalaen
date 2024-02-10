@@ -13,7 +13,7 @@ const NavBar = () => {
         </ul>
       </div>
       <div className="flex justify-between gap-5 items-center">
-        <LightModeIcon fill={"white"} />
+        <LightModeIcon />
       </div>
     </nav>
   );
