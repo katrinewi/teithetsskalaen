@@ -1,13 +1,6 @@
-"use client";
-// import { useContext } from "react";
-// import ThemeContext from "../../providers/Theme";
 import { TextButton } from "../../types/buttons";
 
 const Button = ({ label, variant = "filled", ...rest }: TextButton) => {
-  // const { theme } = useContext(ThemeContext);
-
-  console.log(variant);
-
   const variants: { [key: string]: string } = {
     filled:
       "bg-light-accent text-light-background border-light-accent dark:bg-dark-accent dark:text-dark-text dark:border-dark-accent hover:bg-light-accentHover hover:border-light-accentHover dark:hover:bg-dark-accentHover dark:hover:border-dark-accentHover",
