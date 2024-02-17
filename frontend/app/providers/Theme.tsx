@@ -2,7 +2,7 @@
 import { createContext, ReactElement, useEffect, useState } from "react";
 
 const ThemeContext = createContext({
-  theme: "light",
+  theme: "",
   setTheme: (newTheme: string) => {},
 });
 
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const ThemeContextProvider = (props: Props): ReactElement => {
-  const [providedTheme, setProvidedTheme] = useState<string>("light");
+  const [providedTheme, setProvidedTheme] = useState<string>("");
   useEffect(() => initialThemeHandler());
 
   const getLocalValue = (): string | null => {
@@ -23,6 +23,9 @@ export const ThemeContextProvider = (props: Props): ReactElement => {
     if (localTheme) {
       document!.querySelector("html")!.classList.add(localTheme);
       setProvidedTheme(localTheme);
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document!.querySelector("html")!.classList.add("dark");
+      setProvidedTheme("dark");
     } else {
       document!.querySelector("html")!.classList.add("light");
       setProvidedTheme("light");
@@ -30,16 +33,9 @@ export const ThemeContextProvider = (props: Props): ReactElement => {
   };
 
   const setTheme = (newTheme: string): void => {
-    console.log("New theme", newTheme);
-    if (providedTheme === "dark") {
-      setProvidedTheme("light");
-      updateHtmlClass("dark", "light");
-      saveToLocal("light");
-      return;
-    }
-    setProvidedTheme("dark");
-    updateHtmlClass("light", "dark");
-    saveToLocal("dark");
+    updateHtmlClass(providedTheme, newTheme);
+    setProvidedTheme(newTheme);
+    saveToLocal(newTheme);
     return;
   };
 
