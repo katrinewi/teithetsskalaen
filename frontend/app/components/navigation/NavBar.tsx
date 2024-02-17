@@ -1,7 +1,16 @@
+"use client";
+import { useContext } from "react";
+import DarkModeIcon from "../../assets/icons/DarkModeIcon";
 import LightModeIcon from "../../assets/icons/LightModeIcon";
 import Logo from "../../assets/logos/main";
+import ThemeContext from "../../providers/Theme";
+import IconButton from "../UI/IconButton";
 
 const NavBar = () => {
+  const themeContext: { dark?: boolean; toggleTheme: () => void } =
+    useContext(ThemeContext);
+
+  console.log(themeContext.dark);
   return (
     <nav className="flex justify-between p-2 text-lg mb-5 items-center">
       <div className="flex justify-between gap-10 items-center">
@@ -12,7 +21,17 @@ const NavBar = () => {
         </ul>
       </div>
       <div className="flex justify-between gap-5 items-center">
-        <LightModeIcon className="fill-light-text dark:fill-dark-text" />
+        <IconButton
+          icon={
+            themeContext.dark ? (
+              <LightModeIcon className="fill-light-text dark:fill-dark-text" />
+            ) : (
+              <DarkModeIcon className="fill-light-text dark:fill-dark-text" />
+            )
+          }
+          label="Contact"
+          onClick={themeContext.toggleTheme}
+        />
       </div>
     </nav>
   );

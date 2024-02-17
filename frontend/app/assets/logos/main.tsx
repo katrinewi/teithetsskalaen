@@ -21,14 +21,14 @@ const Logo: FunctionComponent<Props> = ({ className }) => (
     >
       <path
         fill="none"
-        stroke-miterlimit="10"
-        stroke-width="12"
+        strokeMiterlimit="10"
+        strokeWidth="12"
         d="M161.096 204.357 81.927 400.329s17.108 50.287 79.169 50.287c62.06 0 79.168-50.287 79.168-50.287l-79.168-195.972zm228.937-59.967-79.168 195.944s17.109 50.281 79.168 50.281c62.061 0 79.168-50.281 79.168-50.281L390.033 144.39z"
       />
       <path
         fill="none"
-        stroke-miterlimit="10"
-        stroke-width="18"
+        strokeMiterlimit="10"
+        strokeWidth="18"
         d="m163.264 196.824 228.947-60.117"
       />
       <path

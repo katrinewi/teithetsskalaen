@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import NavBar from "./components/navigation/NavBar";
 import "./globals.css";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "Teithetsskalaen",
@@ -13,13 +14,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const mode = "dark";
   return (
-    <html className={mode} lang="no">
-      <body>
-        <NavBar />
-        {children}
-      </body>
+    <html lang="no">
+      <Providers>
+        <body>
+          <NavBar />
+          {children}
+        </body>
+      </Providers>
     </html>
   );
 }
