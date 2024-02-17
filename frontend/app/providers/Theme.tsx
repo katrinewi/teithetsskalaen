@@ -3,7 +3,7 @@ import { createContext, ReactElement, useEffect, useState } from "react";
 
 const ThemeContext = createContext({
   theme: "light",
-  toggleTheme: () => {},
+  setTheme: (newTheme: string) => {},
 });
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const ThemeContextProvider = (props: Props): ReactElement => {
-  const [theme, setTheme] = useState<string>("light");
+  const [providedTheme, setProvidedTheme] = useState<string>("light");
   useEffect(() => initialThemeHandler());
 
   const getLocalValue = (): string | null => {
@@ -22,37 +22,38 @@ export const ThemeContextProvider = (props: Props): ReactElement => {
     const localTheme = getLocalValue();
     if (localTheme) {
       document!.querySelector("html")!.classList.add(localTheme);
-      setTheme(localTheme);
+      setProvidedTheme(localTheme);
     } else {
       document!.querySelector("html")!.classList.add("light");
-      setTheme("light");
+      setProvidedTheme("light");
     }
   };
 
-  const toggleTheme = (): void => {
-    if (theme === "dark") {
-      setTheme("light");
+  const setTheme = (newTheme: string): void => {
+    console.log("New theme", newTheme);
+    if (providedTheme === "dark") {
+      setProvidedTheme("light");
       updateHtmlClass("dark", "light");
       saveToLocal("light");
       return;
     }
-    setTheme("dark");
+    setProvidedTheme("dark");
     updateHtmlClass("light", "dark");
     saveToLocal("dark");
     return;
   };
 
-  const updateHtmlClass = (oldClass: string, newClass: string) => {
+  const updateHtmlClass = (oldClass: string, newClass: string): void => {
     document!.querySelector("html")!.classList.remove(oldClass);
     document!.querySelector("html")!.classList.add(newClass);
   };
 
-  const saveToLocal = (newTheme: string) => {
+  const saveToLocal = (newTheme: string): void => {
     localStorage.setItem("theme", newTheme);
   };
 
   return (
-    <ThemeContext.Provider value={{ theme: theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme: providedTheme, setTheme }}>
       {props.children}
     </ThemeContext.Provider>
   );
