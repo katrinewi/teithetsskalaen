@@ -2,7 +2,7 @@
 import { createContext, ReactElement, useEffect, useState } from "react";
 
 const ThemeContext = createContext({
-  dark: false,
+  theme: "light",
   toggleTheme: () => {},
 });
 
@@ -11,44 +11,48 @@ interface Props {
 }
 
 export const ThemeContextProvider = (props: Props): ReactElement => {
-  const [dark, setDark] = useState(false);
+  const [theme, setTheme] = useState<string>("light");
   useEffect(() => initialThemeHandler());
 
-  const getLocalValue = (): boolean => {
-    return !localStorage.getItem("darkTheme");
+  const getLocalValue = (): string | null => {
+    return localStorage.getItem("theme");
   };
 
   const initialThemeHandler = (): void => {
-    if (getLocalValue()) {
-      localStorage.setItem("darkTheme", "false");
-      document!.querySelector("html")!.classList.add("dark");
-      setDark(false);
+    const localTheme = getLocalValue();
+    if (localTheme) {
+      document!.querySelector("html")!.classList.add(localTheme);
+      setTheme(localTheme);
     } else {
-      const localDark: boolean = JSON.parse(localStorage.getItem("darkTheme")!);
-      localDark && document!.querySelector("html")!.classList.add("dark");
-      setDark(() => {
-        return localDark;
-      });
+      document!.querySelector("html")!.classList.add("light");
+      setTheme("light");
     }
   };
 
   const toggleTheme = (): void => {
-    const localDark: boolean = JSON.parse(localStorage.getItem("darkTheme")!);
-    setDark(!localDark);
-    toggleDarkBodyClass();
-    saveToLocal();
+    if (theme === "dark") {
+      setTheme("light");
+      updateHtmlClass("dark", "light");
+      saveToLocal("light");
+      return;
+    }
+    setTheme("dark");
+    updateHtmlClass("light", "dark");
+    saveToLocal("dark");
+    return;
   };
 
-  function toggleDarkBodyClass(): void {
-    document!.querySelector("html")!.classList.toggle("dark");
-  }
+  const updateHtmlClass = (oldClass: string, newClass: string) => {
+    document!.querySelector("html")!.classList.remove(oldClass);
+    document!.querySelector("html")!.classList.add(newClass);
+  };
 
-  function saveToLocal(): void {
-    localStorage.setItem("darkTheme", `${!dark}`);
-  }
+  const saveToLocal = (newTheme: string) => {
+    localStorage.setItem("theme", newTheme);
+  };
 
   return (
-    <ThemeContext.Provider value={{ dark: dark, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme: theme, toggleTheme }}>
       {props.children}
     </ThemeContext.Provider>
   );

@@ -7,10 +7,9 @@ import ThemeContext from "../../providers/Theme";
 import IconButton from "../UI/IconButton";
 
 const NavBar = () => {
-  const themeContext: { dark?: boolean; toggleTheme: () => void } =
+  const themeContext: { theme?: string; toggleTheme: () => void } =
     useContext(ThemeContext);
 
-  console.log(themeContext.dark);
   return (
     <nav className="flex justify-between p-2 text-lg mb-5 items-center">
       <div className="flex justify-between gap-10 items-center">
@@ -23,10 +22,10 @@ const NavBar = () => {
       <div className="flex justify-between gap-5 items-center">
         <IconButton
           icon={
-            themeContext.dark ? (
-              <LightModeIcon className="fill-light-text dark:fill-dark-text" />
-            ) : (
+            themeContext.theme === "light" ? (
               <DarkModeIcon className="fill-light-text dark:fill-dark-text" />
+            ) : (
+              <LightModeIcon className="fill-light-text dark:fill-dark-text" />
             )
           }
           label="Contact"
