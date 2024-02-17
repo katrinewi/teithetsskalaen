@@ -6,3 +6,7 @@ export interface BaseButton {
 export interface IconButton extends BaseButton {
   icon: React.ReactNode;
 }
+
+export interface TextButton extends BaseButton {
+  variant?: string;
+}

@@ -15,6 +15,7 @@ const config: Config = {
         primary: "#7A6D8D",
         secondary: "#E6A865",
         accent: "#580085",
+        accentHover: "#8A00D0",
       },
       dark: {
         text: "#EAE9FC",
@@ -22,6 +23,7 @@ const config: Config = {
         primary: "#7F7292",
         secondary: "#9A5B19",
         accent: "#D37AFF",
+        accentHover: "#B158DD",
       },
     },
     extend: {
