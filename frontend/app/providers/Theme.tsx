@@ -30,6 +30,7 @@ export const ThemeContextProvider = (props: Props): ReactElement => {
       document!.querySelector("html")!.classList.add("light");
       setProvidedTheme("light");
     }
+    document!.querySelector("body")!.classList.remove("invisible");
   };
 
   const setTheme = (newTheme: string): void => {

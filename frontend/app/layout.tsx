@@ -17,7 +17,8 @@ export default function RootLayout({
   return (
     <html lang="no">
       <Providers>
-        <body>
+        {/* Setting the className is is a hack to prevent a flash of unstyled content. Class is removed once the ThemeProvider has initialized */}
+        <body className="invisible">
           <NavBar />
           {children}
         </body>
