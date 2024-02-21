@@ -1,5 +1,6 @@
 "use client";
 import { createContext, ReactElement, useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 const ThemeContext = createContext({
   theme: "",
@@ -7,31 +8,17 @@ const ThemeContext = createContext({
 });
 
 interface Props {
+  initialTheme?: string;
   children?: JSX.Element | Array<JSX.Element> | React.ReactNode;
 }
 
 export const ThemeContextProvider = (props: Props): ReactElement => {
-  const [providedTheme, setProvidedTheme] = useState<string>("");
-  useEffect(() => initialThemeHandler());
-
-  const getLocalValue = (): string | null => {
-    return localStorage.getItem("theme");
-  };
-
-  const initialThemeHandler = (): void => {
-    const localTheme = getLocalValue();
-    if (localTheme) {
-      document!.querySelector("html")!.classList.add(localTheme);
-      setProvidedTheme(localTheme);
-    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      document!.querySelector("html")!.classList.add("dark");
-      setProvidedTheme("dark");
-    } else {
-      document!.querySelector("html")!.classList.add("light");
-      setProvidedTheme("light");
-    }
-    document!.querySelector("body")!.classList.remove("invisible");
-  };
+  const [cookies, setCookie, removeCookie] = useCookies<
+    "theme",
+    { theme: string | undefined }
+  >(["theme"]);
+  const initialState = cookies.theme || props.initialTheme || "light";
+  const [providedTheme, setProvidedTheme] = useState<string>(initialState);
 
   const setTheme = (newTheme: string): void => {
     updateHtmlClass(providedTheme, newTheme);
@@ -46,7 +33,7 @@ export const ThemeContextProvider = (props: Props): ReactElement => {
   };
 
   const saveToLocal = (newTheme: string): void => {
-    localStorage.setItem("theme", newTheme);
+    setCookie("theme", newTheme);
   };
 
   return (

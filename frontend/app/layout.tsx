@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import NavBar from "./components/navigation/NavBar";
 import "./globals.css";
 import Providers from "./providers";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: "Teithetsskalaen",
@@ -14,11 +15,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const serverCookies = cookies();
+  const theme = serverCookies.get("theme")?.value;
+
   return (
-    <html lang="no">
-      <Providers>
-        {/* Setting the className is is a hack to prevent a flash of unstyled content. Class is removed once the ThemeProvider has initialized */}
-        <body className="invisible">
+    <html lang="no" className={theme}>
+      <Providers initialTheme={theme}>
+        <body>
           <NavBar />
           {children}
         </body>
