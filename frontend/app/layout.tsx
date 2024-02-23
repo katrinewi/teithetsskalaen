@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+import NavBar from "./components/navigation/NavBar";
+import "./globals.css";
+import Providers from "./providers";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: "Teithetsskalaen",
@@ -14,9 +15,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const serverCookies = cookies();
+  const theme = serverCookies.get("theme")?.value;
+
   return (
-    <html lang="no">
-      <body className={inter.className}>{children}</body>
+    <html lang="no" className={theme}>
+      <Providers initialTheme={theme}>
+        <body>
+          <NavBar />
+          {children}
+        </body>
+      </Providers>
     </html>
   );
 }
