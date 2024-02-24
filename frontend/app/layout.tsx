@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="no" className={theme}>
       <Providers initialTheme={theme}>
-        <body>
+        <body className="p-4 h-screen font-mono">
           <NavBar />
           {children}
         </body>
