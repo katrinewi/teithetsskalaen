@@ -14,22 +14,23 @@ export default function Home() {
           <h1 className="text-4xl font-semibold text-light-text dark:text-dark-text border-b-2 border-light-primary dark:border-dark-primary mb-3">
             Teithetsskalaen
           </h1>
-          <div className="flex gap-4">
+          <form
+            action={() => {
+              setInputValue("");
+              setSillyThings([inputValue, ...sillyThings]);
+            }}
+            className="flex gap-4"
+          >
             <Input
+              name="sillyThing"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Skriv inn noe teit ... "
             />
-            <Button
-              disabled={!inputValue}
-              onClick={() => {
-                setInputValue("");
-                setSillyThings([inputValue, ...sillyThings]);
-              }}
-            >
+            <Button type="submit" disabled={!inputValue}>
               Legg til
             </Button>
-          </div>
+          </form>
 
           {sillyThings.length ? (
             <ul>
