@@ -10,20 +10,20 @@ const config: Config = {
   theme: {
     colors: {
       light: {
-        text: "#040316",
-        background: "#FBFBFE",
-        primary: "#7A6D8D",
-        secondary: "#E6A865",
-        accent: "#580085",
-        accentHover: "#8A00D0",
+        text: "#090C0A",
+        background: "#F9FBFA",
+        primary: "#78A189",
+        secondary: "#AEC7C2",
+        accent: "#73BDB9",
+        accentHover: "#5c9794",
       },
       dark: {
-        text: "#EAE9FC",
-        background: "#010104",
-        primary: "#7F7292",
-        secondary: "#9A5B19",
-        accent: "#D37AFF",
-        accentHover: "#B158DD",
+        text: "#F3F6F4",
+        background: "#040605",
+        primary: "#5E876F",
+        secondary: "#38514C",
+        accent: "#418B87",
+        accentHover: "#346f6c",
       },
     },
     extend: {
