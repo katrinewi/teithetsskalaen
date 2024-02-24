@@ -1,14 +1,16 @@
 import { ButtonHTMLAttributes, forwardRef } from "react";
 
+type ButtonVariant = "filled" | "outlined";
+
 interface TextButton extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "filled" | "outlined";
+  variant?: ButtonVariant;
 }
 
 const Button = forwardRef<HTMLButtonElement, TextButton>(function Button(
   { variant = "filled", children, ...rest },
   ref,
 ) {
-  const variants: { [key: string]: string } = {
+  const variants: Record<ButtonVariant, string> = {
     filled:
       "bg-light-accent text-light-background border-light-accent dark:bg-dark-accent dark:text-dark-text dark:border-dark-accent hover:bg-light-accentHover hover:border-light-accentHover dark:hover:bg-dark-accentHover dark:hover:border-dark-accentHover",
     outlined:
