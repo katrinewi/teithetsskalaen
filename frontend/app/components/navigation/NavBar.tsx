@@ -18,14 +18,14 @@ const NavBar = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="flex justify-between p-2 text-lg mb-5 items-center">
+    <nav className="flex justify-between text-lg mb-5 items-center">
       <div className="flex justify-between gap-10 items-center">
-        <Logo className=" fill-light-text stroke-light-text dark:fill-dark-text dark:stroke-dark-text hidden sm:block" />
+        <Logo className="h-20 w-20 fill-light-text stroke-light-text dark:fill-dark-text dark:stroke-dark-text hidden sm:block" />
         <ul className="flex justify-between gap-5">
           {links.map((link) => (
             <li
               key={link.href}
-              className={`text-light-text dark:text-dark-text ${pathname === link.href ? "border-b-2 border-light-primary dark:border-dark-primary" : ""}`}
+              className={`text-xl text-light-text dark:text-dark-text ${pathname === link.href ? "border-b-2 border-light-primary dark:border-dark-primary" : ""}`}
             >
               <Link href={link.href}>{link.text}</Link>
             </li>
@@ -36,12 +36,12 @@ const NavBar = () => {
         <IconButton
           icon={
             theme === "light" ? (
-              <DarkModeIcon className="fill-light-text dark:fill-dark-text" />
+              <DarkModeIcon className="m-5 fill-light-text dark:fill-dark-text" />
             ) : (
-              <LightModeIcon className="fill-light-text dark:fill-dark-text" />
+              <LightModeIcon className="m-5 fill-light-text dark:fill-dark-text" />
             )
           }
-          aria-label={`Active ${theme === "light" ? "dark" : "light"} mode`}
+          aria-label={`Activate ${theme === "light" ? "dark" : "light"} mode`}
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         />
       </div>
