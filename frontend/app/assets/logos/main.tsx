@@ -8,9 +8,9 @@ const Logo: FunctionComponent<Props> = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlSpace="preserve"
-    width="402"
-    height="375"
-    viewBox="55 135 452 200"
+    width="100"
+    height="100"
+    viewBox="45 200 452 200"
     className={className}
   >
     <path
