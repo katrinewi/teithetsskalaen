@@ -14,16 +14,14 @@ const config: Config = {
         background: "#F9FBFA",
         primary: "#78A189",
         secondary: "#AEC7C2",
-        accent: "#73BDB9",
-        accentHover: "#5c9794",
+        accent: "#A75FBF",
       },
       dark: {
         text: "#F3F6F4",
         background: "#040605",
         primary: "#5E876F",
         secondary: "#38514C",
-        accent: "#418B87",
-        accentHover: "#346f6c",
+        accent: "#9661A8",
       },
     },
     extend: {
