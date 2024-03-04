@@ -11,7 +11,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButton>(
     return (
       <button
         ref={ref}
-        className="bg-transparent cursor-pointer p-0.25 border-1 border-transparent"
+        className="bg-transparent cursor-pointer p-0.25 border-1 border-transparent focus:rotate-1 focus:outline-none"
         {...rest}
       >
         {children}
