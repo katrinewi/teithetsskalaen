@@ -1,22 +1,31 @@
-import { TextButton } from "../../types/buttons";
+import { ButtonHTMLAttributes, forwardRef } from "react";
 
-const Button = ({ label, variant = "filled", ...rest }: TextButton) => {
-  const variants: { [key: string]: string } = {
+type ButtonVariant = "filled" | "outlined";
+
+interface TextButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant;
+}
+
+const Button = forwardRef<HTMLButtonElement, TextButton>(function Button(
+  { variant = "filled", children, ...rest },
+  ref,
+) {
+  const variants: Record<ButtonVariant, string> = {
     filled:
-      "bg-light-accent text-light-background border-light-accent dark:bg-dark-accent dark:text-dark-text dark:border-dark-accent hover:bg-light-accentHover hover:border-light-accentHover dark:hover:bg-dark-accentHover dark:hover:border-dark-accentHover",
+      "bg-light-primary text-light-background border-light-primary dark:bg-dark-primary dark:text-dark-text dark:border-dark-primary focus:bg-light-accent focus:border-light-accent focus:dark:bg-dark-accent focus:dark:border-dark-accent",
     outlined:
-      "bg-transparent border-light-accent text-light-accent dark:border-dark-accent dark:text-dark-accent hover:border-light-accentHover hover:text-light-accentHover dark:hover:border-dark-accentHover dark:hover:text-dark-accentHover",
+      "bg-transparent border-light-primary text-light-primary dark:border-dark-primary dark:text-dark-primary focus:border-light-accent focus:dark:boder-dark-accent",
   };
 
   return (
     <button
-      aria-label={label}
-      className={`cursor-pointer p-1 border rounded ${variants[variant]}`}
+      ref={ref}
       {...rest}
+      className={`cursor-pointer p-1 border rounded font-medium whitespace-nowrap focus:rotate-1 focus:outline-none ${variants[variant]}`}
     >
-      {label}
+      {children}
     </button>
   );
-};
+});
 
 export default Button;

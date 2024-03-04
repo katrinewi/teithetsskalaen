@@ -1,7 +1,14 @@
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center">
-      <h1>Teithetsskalaen</h1>
-    </main>
+    <ul>
+      {["Teit1", "Teit2", "Teit3"].map((thing, index) => (
+        <li
+          key={index}
+          className="text-lg bg-light-primary dark:bg-dark-primary rounded my-3 px-3 py-1 "
+        >
+          {thing}
+        </li>
+      ))}
+    </ul>
   );
 }
