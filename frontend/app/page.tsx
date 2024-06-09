@@ -24,7 +24,6 @@ const SILLIES = [
     score: 4,
   },
 ];
-const MAX_DESCRIPTION_LENGTH = 60;
 
 interface SillyItemProps {
   item: { title: string; description: string; score: number };
@@ -32,11 +31,6 @@ interface SillyItemProps {
 
 const SillyItem = ({ item }: SillyItemProps) => {
   const [expanded, setExpanded] = useState<boolean>(false);
-
-  const description =
-    item.description.length > MAX_DESCRIPTION_LENGTH
-      ? item.description.substring(0, MAX_DESCRIPTION_LENGTH) + "..."
-      : item.description;
 
   return (
     <li className="relative">
@@ -70,7 +64,7 @@ const SillyItem = ({ item }: SillyItemProps) => {
       <div className="bg-light-primary dark:bg-dark-primary rounded my-3 px-3 py-1 flex gap-5 justify-between items-center">
         <div>
           <h2 className="text-lg">{item.title}</h2>
-          <p className="text-sm italic">{description}</p>
+          <p className="text-sm italic truncate w-96">{item.description}</p>
         </div>
         <div>{item.score}</div>
       </div>
