@@ -2,21 +2,16 @@ import { FunctionComponent } from "react";
 
 interface Props {
   className?: string;
-  width?: string;
-  height?: string;
+  size?: string;
 }
 
-const ExpandLess: FunctionComponent<Props> = ({
-  className,
-  height = 24,
-  width = 24,
-}) => (
+const ExpandLess: FunctionComponent<Props> = ({ className, size = 24 }) => (
   <svg
     className={className}
     xmlns="http://www.w3.org/2000/svg"
-    height={height}
+    height={size}
     viewBox="0 -960 960 960"
-    width={width}
+    width={size}
   >
     <path d="m296-345-56-56 240-240 240 240-56 56-184-184-184 184Z" />
   </svg>
