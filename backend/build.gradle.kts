@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
@@ -8,10 +10,17 @@ plugins {
     id("io.ktor.plugin") version "2.3.7"
     id("com.ncorti.ktfmt.gradle") version "0.17.0"
     kotlin("plugin.serialization") version "1.9.21"
+    id("com.github.johnrengelman.shadow") version "4.0.4"
 }
 
 ktfmt {
     kotlinLangStyle()
+}
+
+tasks {
+    named<ShadowJar>("shadowJar") {
+        mergeServiceFiles()
+    }
 }
 
 group = "no.teithetsskalaen"

@@ -2,6 +2,13 @@ package no.teithetsskalaen
 
 import io.github.cdimascio.dotenv.dotenv
 
+val dotenv = dotenv { ignoreIfMissing = true }
+
+class MissingVariableException(name: String) :
+    Exception(
+        "Missing environment variable '$name'. Either set it as a environment variables or add it to the .env file."
+    )
+
 data class Config(
     val url: String,
     val driver: String,
@@ -14,11 +21,14 @@ data class Config(
     val port: Int,
 ) {
     companion object {
+        private fun unsafeLoadVariable(name: String): String {
+            return dotenv[name] ?: throw MissingVariableException(name)
+        }
+
         fun loadFromEnv(): Config {
-            val dotenv = dotenv()
-            val url = dotenv["DB_URL"]
-            val username = dotenv["DB_USERNAME"]
-            val password = dotenv["DB_PASSWORD"]
+            val url = unsafeLoadVariable("DB_URL")
+            val username = unsafeLoadVariable("DB_USERNAME")
+            val password = unsafeLoadVariable("DB_PASSWORD")
             val schema = dotenv["DB_SCHEMA"] ?: "teithetsskalaen"
             val port = (dotenv["PORT"] ?: "6969").toInt()
             return Config(
