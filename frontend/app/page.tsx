@@ -6,19 +6,27 @@ import IconButton from "./components/UI/IconButton";
 
 const SILLIES = [
   {
-    title: "Teit tittel 1",
+    title: "Jonas i stolen med paraply",
     description:
-      "Han stod i stolen med paraply, og vi glemte at det var glassvegger slik at alle så det",
+      "Han stod i stolen, og vi glemte at det var glassvegger. Så alle så det, og det blei litt dumt.",
     score: 9,
   },
   {
-    title: "Teit tittel 2",
-    description: "Det blei sagt høyt, men det burde det ikke blitt",
+    title: "Gaute er så gammel",
+    description:
+      "Even sa at det hadde vært juks om Gaute spilte Civ6 sida han har opplevd alle sivilisasjonene.",
     score: 7,
   },
   {
-    title: "Teit tittel 3",
-    description: "Det er like teit hver morgen",
+    title: "Lars og alt han sier",
+    description:
+      "Det er noen av de tingene han refererer til som rett og slett bare høres feil ut.",
+    score: 6,
+  },
+  {
+    title: "Jonas påstår at han ikke lyver",
+    description:
+      "Det kommer jo ofte en hvit løgn, så det er i ferd med å bli litt dumt.",
     score: 4,
   },
 ];
@@ -31,14 +39,14 @@ const SillyItem = ({ item }: SillyItemProps) => (
   <li className="border flex rounded p-2 justify-between border-light-primary dark:border-dark-primary">
     <div>
       <div>
-        <h2 className="text-xl">{item.title}</h2>
-        <p className="italic text-sm opacity-60 truncate w-96">
+        <h2 className="select-none text-xl">{item.title}</h2>
+        <p className="italic opacity-60 select-none text-sm truncate w-96">
           {item.description}
         </p>
       </div>
     </div>
     <div className="flex gap-2 items-center">
-      <p className="text-2xl">{item.score}</p>
+      <p className="select-none text-2xl">{item.score}</p>
       <div className="flex flex-col">
         <IconButton
           aria-label="Stem opp"
