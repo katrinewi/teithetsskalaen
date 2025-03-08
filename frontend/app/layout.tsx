@@ -21,10 +21,10 @@ export default function RootLayout({
   return (
     <html lang="no" className={theme}>
       <Providers initialTheme={theme}>
-        <body className="flex flex-col gap-1 font-mono h-screen p-4">
+        <body className="flex flex-col gap-5 font-mono h-screen p-4">
           <NavBar />
           <main className="flex items-center justify-center">
-            <div className="flex flex-col gap-4 max-w-2xl grow">{children}</div>
+            <div className="flex flex-col gap-5 max-w-2xl grow">{children}</div>
           </main>
         </body>
       </Providers>

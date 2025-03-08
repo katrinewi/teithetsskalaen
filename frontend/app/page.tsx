@@ -69,7 +69,7 @@ export default function Home() {
   return (
     <>
       <h1 className="text-3xl">...det er så mye dumt:</h1>
-      <ul className="flex flex-col gap-3">
+      <ul className="flex flex-col gap-2">
         {SILLIES.map((item, index) => (
           <SillyItem key={index} item={item} />
         ))}
