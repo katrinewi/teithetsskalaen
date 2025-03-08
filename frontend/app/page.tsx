@@ -1,9 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import Edit from "./assets/icons/Edit";
-import ExpandLess from "./assets/icons/ExpandLess";
-import ExpandMore from "./assets/icons/ExpandMore";
+import ArrowUp from "./assets/icons/ArrowUp";
+import ArrowDown from "./assets/icons/ArrowDown";
 import IconButton from "./components/UI/IconButton";
 
 const SILLIES = [
@@ -29,55 +27,45 @@ interface SillyItemProps {
   item: { title: string; description: string; score: number };
 }
 
-const SillyItem = ({ item }: SillyItemProps) => {
-  const [expanded, setExpanded] = useState<boolean>(false);
-
-  return (
-    <li className="relative">
-      <div className="absolute flex gap-2 right-[-95px] m-1 p-2 ">
+const SillyItem = ({ item }: SillyItemProps) => (
+  <li className="border flex rounded p-2 justify-between border-light-primary dark:border-dark-primary">
+    <div>
+      <div>
+        <h2 className="text-xl">{item.title}</h2>
+        <p className="italic text-sm opacity-60 truncate w-96">
+          {item.description}
+        </p>
+      </div>
+    </div>
+    <div className="flex gap-2 items-center">
+      <p className="text-2xl">{item.score}</p>
+      <div className="flex flex-col">
         <IconButton
-          aria-label="Edit"
+          aria-label="Stem opp"
           icon={
-            <Edit
-              className="rounded bg-light-primary dark:bg-dark-primary fill-light-secondary dark:fill-dark-secondary hover:fill-light-text hover:dark:fill-dark-text"
-              size="32"
-            />
+            <ArrowUp className="fill-light-text dark:fill-dark-text opacity-40 hover:opacity-100" />
           }
         />
         <IconButton
-          aria-label={expanded ? "Collapse" : "Expand"}
+          aria-label="Stem ned"
           icon={
-            expanded ? (
-              <ExpandLess
-                className="rounded bg-light-primary dark:bg-dark-primary fill-light-secondary dark:fill-dark-secondary hover:fill-light-text hover:dark:fill-dark-text"
-                size="32"
-              />
-            ) : (
-              <ExpandMore
-                className="rounded bg-light-primary dark:bg-dark-primary fill-light-secondary dark:fill-dark-secondary hover:fill-light-text hover:dark:fill-dark-text"
-                size="32"
-              />
-            )
+            <ArrowDown className="fill-light-text dark:fill-dark-text opacity-40 hover:opacity-100" />
           }
         />
       </div>
-      <div className="bg-light-primary dark:bg-dark-primary rounded my-3 px-3 py-1 flex gap-5 justify-between items-center">
-        <div>
-          <h2 className="text-lg">{item.title}</h2>
-          <p className="text-sm italic truncate w-96">{item.description}</p>
-        </div>
-        <div>{item.score}</div>
-      </div>
-    </li>
-  );
-};
+    </div>
+  </li>
+);
 
 export default function Home() {
   return (
-    <ul>
-      {SILLIES.map((item, index) => (
-        <SillyItem key={index} item={item} />
-      ))}
-    </ul>
+    <>
+      <h1 className="text-3xl">...det er så mye dumt:</h1>
+      <ul className="flex flex-col gap-3">
+        {SILLIES.map((item, index) => (
+          <SillyItem key={index} item={item} />
+        ))}
+      </ul>
+    </>
   );
 }
