@@ -21,7 +21,7 @@ const Button = forwardRef<HTMLButtonElement, TextButton>(function Button(
     <button
       ref={ref}
       {...rest}
-      className={`cursor-pointer p-1 border rounded font-medium whitespace-nowrap focus:rotate-1 focus:outline-none ${variants[variant]}`}
+      className={`cursor-pointer p-1 border rounded font-medium whitespace-nowrap focus:outline-none ${variants[variant]}`}
     >
       {children}
     </button>

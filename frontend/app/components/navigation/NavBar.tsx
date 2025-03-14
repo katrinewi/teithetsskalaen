@@ -9,7 +9,7 @@ import Link from "next/link";
 import Logo from "../../assets/logos/main";
 
 const links: { text: string; href: string }[] = [
-  { text: "Dashboard", href: "/" },
+  { text: "Forside", href: "/" },
   { text: "Legg til", href: "/create" },
 ];
 
@@ -18,7 +18,7 @@ const NavBar = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="flex justify-between text-lg mb-5 items-center">
+    <nav className="flex justify-between text-lg items-center">
       <div className="flex justify-between gap-10 items-center">
         <Logo className="h-20 w-20 fill-light-text stroke-light-text dark:fill-dark-text dark:stroke-dark-text hidden sm:block" />
         <ul className="flex justify-between gap-5">

@@ -1,26 +1,32 @@
 "use client";
 
-import { useState } from "react";
-import Edit from "./assets/icons/Edit";
-import ExpandLess from "./assets/icons/ExpandLess";
-import ExpandMore from "./assets/icons/ExpandMore";
+import ArrowUp from "./assets/icons/ArrowUp";
+import ArrowDown from "./assets/icons/ArrowDown";
 import IconButton from "./components/UI/IconButton";
 
 const SILLIES = [
   {
-    title: "Teit tittel 1",
+    title: "Jonas i stolen med paraply",
     description:
-      "Han stod i stolen med paraply, og vi glemte at det var glassvegger slik at alle så det",
+      "Han stod i stolen, og vi glemte at det var glassvegger. Så alle så det, og det blei litt dumt.",
     score: 9,
   },
   {
-    title: "Teit tittel 2",
-    description: "Det blei sagt høyt, men det burde det ikke blitt",
+    title: "Gaute er så gammel",
+    description:
+      "Even sa at det hadde vært juks om Gaute spilte Civ6 sida han har opplevd alle sivilisasjonene.",
     score: 7,
   },
   {
-    title: "Teit tittel 3",
-    description: "Det er like teit hver morgen",
+    title: "Lars og alt han sier",
+    description:
+      "Det er noen av de tingene han refererer til som rett og slett bare høres feil ut.",
+    score: 6,
+  },
+  {
+    title: "Jonas påstår at han ikke lyver",
+    description:
+      "Det kommer jo ofte en hvit løgn, så det er i ferd med å bli litt dumt.",
     score: 4,
   },
 ];
@@ -29,55 +35,45 @@ interface SillyItemProps {
   item: { title: string; description: string; score: number };
 }
 
-const SillyItem = ({ item }: SillyItemProps) => {
-  const [expanded, setExpanded] = useState<boolean>(false);
-
-  return (
-    <li className="relative">
-      <div className="absolute flex gap-2 right-[-95px] m-1 p-2 ">
+const SillyItem = ({ item }: SillyItemProps) => (
+  <li className="border flex rounded p-2 justify-between border-light-primary dark:border-dark-primary">
+    <div>
+      <div>
+        <h2 className="select-none text-xl">{item.title}</h2>
+        <p className="italic opacity-60 select-none text-sm truncate w-96">
+          {item.description}
+        </p>
+      </div>
+    </div>
+    <div className="flex gap-2 items-center">
+      <p className="select-none text-2xl">{item.score}</p>
+      <div className="flex flex-col">
         <IconButton
-          aria-label="Edit"
+          aria-label="Stem opp"
           icon={
-            <Edit
-              className="rounded bg-light-primary dark:bg-dark-primary fill-light-secondary dark:fill-dark-secondary hover:fill-light-text hover:dark:fill-dark-text"
-              size="32"
-            />
+            <ArrowUp className="fill-light-text dark:fill-dark-text opacity-40 hover:opacity-100" />
           }
         />
         <IconButton
-          aria-label={expanded ? "Collapse" : "Expand"}
+          aria-label="Stem ned"
           icon={
-            expanded ? (
-              <ExpandLess
-                className="rounded bg-light-primary dark:bg-dark-primary fill-light-secondary dark:fill-dark-secondary hover:fill-light-text hover:dark:fill-dark-text"
-                size="32"
-              />
-            ) : (
-              <ExpandMore
-                className="rounded bg-light-primary dark:bg-dark-primary fill-light-secondary dark:fill-dark-secondary hover:fill-light-text hover:dark:fill-dark-text"
-                size="32"
-              />
-            )
+            <ArrowDown className="fill-light-text dark:fill-dark-text opacity-40 hover:opacity-100" />
           }
         />
       </div>
-      <div className="bg-light-primary dark:bg-dark-primary rounded my-3 px-3 py-1 flex gap-5 justify-between items-center">
-        <div>
-          <h2 className="text-lg">{item.title}</h2>
-          <p className="text-sm italic truncate w-96">{item.description}</p>
-        </div>
-        <div>{item.score}</div>
-      </div>
-    </li>
-  );
-};
+    </div>
+  </li>
+);
 
 export default function Home() {
   return (
-    <ul>
-      {SILLIES.map((item, index) => (
-        <SillyItem key={index} item={item} />
-      ))}
-    </ul>
+    <>
+      <h1 className="text-3xl">...det er så mye dumt:</h1>
+      <ul className="flex flex-col gap-2">
+        {SILLIES.map((item, index) => (
+          <SillyItem key={index} item={item} />
+        ))}
+      </ul>
+    </>
   );
 }
